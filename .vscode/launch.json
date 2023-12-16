@@ -2,7 +2,7 @@
     "name": "Django",
     "type": "python",
     "request": "launch",
-    "pythonPath": "/home/jay/anaconda3/envs/eComm/bin/python3",
+    "python": "/home/jay/anaconda3/envs/eComm/bin/python3",
     "program": "/home/jay/PycharmProjects/eComm/ecomm/manage.py",
     "args": [
         "runserver",
@@ -10,6 +10,7 @@
         "--noreload"
     ],
     "configurations": [
+    
         {
             "name": "Python: Current File",
             "type": "python",

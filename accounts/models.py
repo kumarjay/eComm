@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractBaseUser
 import uuid
 from base.models import BaseModel
 from products.models import Product
+from django.utils.text import slugify
 
 # class CustomerUser(AbstractBaseUser):
 #     address = models.CharField()
@@ -19,12 +20,21 @@ class Profile(BaseModel):
     def get_cart_count(self):
         return CartItems.objects.filter(cart__is_paid=False,
                                         cart__user= self.user).count()
+    
+    # def save(self, *args, **kwargs):
+    #     self.uuid = uuid(self.user)
+    #     super(Profile, self).save(*args, **kwargs)
+
+    def __str__(self) -> str:
+        return str(self.user)
 
 
 class Cart(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE,
                              related_name='carts')
     is_paid = models.BooleanField(default=False)
+    def __str__(self) -> str:
+        return str(self.user)
 
 
 class CartItems(BaseModel):
@@ -33,8 +43,10 @@ class CartItems(BaseModel):
                              related_name='cart_items')
     products = models.ForeignKey(Product, on_delete=models.SET_NULL,
                                  null=True, blank=True)
-    items = models.FloatField(null=True)
+    items = models.IntegerField(null=True)
     total_price = models.FloatField(null=True)
+    def __str__(self) -> str:
+        return str(self.cart.user) + ' --> ' + str(self.products.product_name)
 
 
 

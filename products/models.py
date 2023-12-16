@@ -23,13 +23,14 @@ class Product(BaseModel):
                                  related_name='products')
     price = models.IntegerField()
     product_description = models.TextField()
+    total_items = models.IntegerField(default=1)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.product_name)
         super(Product, self).save(*args, **kwargs)
 
-    # def __str__(self) -> str:
-    #     return self.product_name
+    def __str__(self) -> str:
+        return self.product_name
 
 
 class ProductImage(BaseModel):

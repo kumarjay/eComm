@@ -15,13 +15,19 @@
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="/media/{{product.product_images.first.image}}" alt="..." /></div>
                     <div class="col-md-6">
-                        <div class="small mb-1">SKU: BST-498</div>
+                        <!-- <div class="small mb-1">SKU: BST-498</div> -->
                         <h1 class="display-5 fw-bolder">{{product.product_name}}</h1>
                         <div class="fs-5 mb-5">
                             <!-- <span class="text-decoration-line-through">${{product.price}}</span> -->
-                            <span>${{product.price}}</span>
+                            <!-- <span>${{product.price}}</span> -->
                         </div>
-                        <p class="lead">{{product.product_description}}</p>
+                        <p class="lead">{{product.product_description|linebreaks}}</p>
+                        {% if request.GET.alert == 'danger' %}
+                            <div class="alert alert-danger" role="alert">
+                                <p>Please select less than {{request.GET.items}} items</p>
+                            </div>
+                        {% endif %}
+                        <!-- {% if product.total_items != 0 %}
                         <div class="d-flex">
                             <form method="post" action="{% url 'add_to_cart' product.slug %}">
                                 {% csrf_token %}
@@ -32,7 +38,20 @@
                                 </button>
                             </form>
                         </div>
+                        {% endif %} -->
                     </div>
+                    <!-- <div class="col-md-2">
+                        <div class="card" style="width: 15rem;">
+                            <div class="card-header text-center">
+                              <b>Reviews</b>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item">Cras justo odio</li>
+                              <li class="list-group-item">Dapibus ac facilisis in</li>
+                              <li class="list-group-item">Vestibulum at eros</li>
+                            </ul>
+                          </div>
+                    </div> -->
                 </div>
             </div>
             {% endfor %}
@@ -53,7 +72,7 @@
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">{{item.name}}</h5>
                                     <!-- Product price-->
-                                    ${{ item.price_range }}
+                                    <!-- ${{ item.price_range }} -->
                                 </div>
                             </div>
                             <!-- Product actions-->

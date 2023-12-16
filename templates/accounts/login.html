@@ -40,6 +40,11 @@
 									</p>
 								</div>
 			      	</div>
+					{% if not_user %}
+					  <div class="alert alert-danger" role="alert">
+						{{not_user}}
+					  </div>
+					  {% endif %}
 							<form action="{% url 'login' %}" class="signin-form" method="post">
 								{% csrf_token %}
 			      		<div class="form-group mb-3">
